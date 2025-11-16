@@ -223,7 +223,24 @@
       const tableBody = document.querySelector('#scheduleTable tbody');
       tableBody.innerHTML = '';
     }
+
+    // =======================================================
+    // 🚨 Confirm before page refresh / navigation
+    // =======================================================
+
+    let dataChanged = false;
+
+    // Detect any change in editable fields
+    document.addEventListener("input", () => {
+      dataChanged = true;
+    });
+
+    window.addEventListener("beforeunload", function (e) {
+      if (dataChanged) {
+        e.preventDefault();
+        e.returnValue = "Are you sure you want to leave or refresh this page? Unsaved data will be lost.";
+      }
+    });
   </script>
 </body>
 </html>
-
